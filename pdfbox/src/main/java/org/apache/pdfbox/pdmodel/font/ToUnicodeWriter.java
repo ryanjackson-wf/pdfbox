@@ -213,12 +213,12 @@ final class ToUnicodeWriter
         {
             return false;
         }
-        int fromCode = prev.codePointAt(0);
-        int toCode = next.codePointAt(0);
+        int prevCode = prev.codePointAt(0);
+        int nextCode = next.codePointAt(0);
 
         // Allow the new destination string if:
         // 1. It is sequential with the previous one and differs only in the low-order byte
         // 2. The previous string does not contain any UTF-16 surrogates
-        return allowCodeRange(fromCode, toCode) && prev.codePointCount(0, prev.length()) == 1;
+        return allowCodeRange(prevCode, nextCode) && prev.codePointCount(0, prev.length()) == 1;
     }
 }
