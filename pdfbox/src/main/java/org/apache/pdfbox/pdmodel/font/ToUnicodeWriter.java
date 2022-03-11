@@ -120,7 +120,6 @@ final class ToUnicodeWriter
         List<Integer> srcTo = new ArrayList<Integer>();
         List<String> dstString = new ArrayList<String>();
 
-        Map.Entry<Integer, String> first = null;
         Map.Entry<Integer, String> prev = null;
 
         for (Map.Entry<Integer, String> next : cidToUnicode.entrySet())
@@ -133,22 +132,19 @@ final class ToUnicodeWriter
             else
             {
                 // begin range
-                first = next;
-                srcFrom.add(first.getKey());
-                srcTo.add(first.getKey());
-                dstString.add(first.getValue());
+                srcFrom.add(next.getKey());
+                srcTo.add(next.getKey());
+                dstString.add(next.getValue());
             }
             prev = next;
         }
 
         // limit entries per operator
-        int batchCount = (int) Math.ceil(srcFrom.size() /
-                (double) MAX_ENTRIES_PER_OPERATOR);
+        int batchCount = (int) Math.ceil(srcFrom.size() / (double) MAX_ENTRIES_PER_OPERATOR);
         for (int batch = 0; batch < batchCount; batch++)
         {
             int count = batch == batchCount - 1 ?
-                    srcFrom.size() - MAX_ENTRIES_PER_OPERATOR * batch :
-                    MAX_ENTRIES_PER_OPERATOR;
+                    srcFrom.size() - MAX_ENTRIES_PER_OPERATOR * batch : MAX_ENTRIES_PER_OPERATOR;
             writer.write(count + " beginbfrange\n");
             for (int j = 0; j < count; j++)
             {
