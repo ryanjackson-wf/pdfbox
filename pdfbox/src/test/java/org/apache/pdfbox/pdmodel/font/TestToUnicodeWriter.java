@@ -27,7 +27,6 @@ import java.util.Map;
 
 
 /**
- * 
  * @author ryanjackson-wf
  */
 public class TestToUnicodeWriter extends TestCase
@@ -38,7 +37,8 @@ public class TestToUnicodeWriter extends TestCase
     }
 
     @Test
-    public void testAllowCIDToUnicodeRange() {
+    public void testAllowCIDToUnicodeRange()
+    {
         Map.Entry<Integer, String> six = new AbstractMap.SimpleEntry<Integer, String>(0x03FF, "6");
         Map.Entry<Integer, String> seven = new AbstractMap.SimpleEntry<Integer, String>(0x0400, "7");
         Map.Entry<Integer, String> eight = new AbstractMap.SimpleEntry<Integer, String>(0x0401, "8");
@@ -90,7 +90,8 @@ public class TestToUnicodeWriter extends TestCase
     }
 
     @Test
-    public void testAllowDestinationRange() {
+    public void testAllowDestinationRange()
+    {
         // Denied (bogus)
         assertFalse(ToUnicodeWriter.allowDestinationRange("", ""));
         assertFalse(ToUnicodeWriter.allowDestinationRange("0", ""));

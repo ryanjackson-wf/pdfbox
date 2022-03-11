@@ -181,16 +181,20 @@ final class ToUnicodeWriter
 
     // allowCIDToUnicodeRange returns true if the CID and Unicode destination string are allowed to follow one another
     // according to the Adobe 1.7 specification as described in Section 5.9, Example 5.16.
-    static boolean allowCIDToUnicodeRange(Map.Entry<Integer, String> prev, Map.Entry<Integer, String> next) {
-        if (prev == null || next == null) {
+    static boolean allowCIDToUnicodeRange(Map.Entry<Integer, String> prev, Map.Entry<Integer, String> next)
+    {
+        if (prev == null || next == null)
+        {
             return false;
         }
         return allowCodeRange(prev.getKey(), next.getKey()) && allowDestinationRange(prev.getValue(), next.getValue());
     }
 
     // allowCodeRange returns true if the 16-bit values are sequential and differ only in the low-order byte.
-    static boolean allowCodeRange(int prev, int next) {
-        if ((prev + 1) != next) {
+    static boolean allowCodeRange(int prev, int next)
+    {
+        if ((prev + 1) != next)
+        {
             return false;
         }
         int prevH = (prev >> 8) & 0xFF;
@@ -203,8 +207,10 @@ final class ToUnicodeWriter
 
     // allowDestinationRange returns true if the code points represented by the strings are sequential and differ
     // only in the low-order byte.
-    static boolean allowDestinationRange(String prev, String next) {
-        if (prev.isEmpty() || next.isEmpty()) {
+    static boolean allowDestinationRange(String prev, String next)
+    {
+        if (prev.isEmpty() || next.isEmpty())
+        {
             return false;
         }
         int fromCode = prev.codePointAt(0);
