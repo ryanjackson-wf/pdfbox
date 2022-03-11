@@ -190,10 +190,13 @@ final class ToUnicodeWriter
 
     // allowCodeRange returns true if the 16-bit values are sequential and differ only in the low-order byte.
     static boolean allowCodeRange(int prev, int next) {
-        byte prevH = (byte) ((prev >> 8) & 0xFF);
-        byte prevL = (byte) (prev & 0xFF);
-        byte nextH = (byte) ((next >> 8) & 0xFF);
-        byte nextL = (byte) (next & 0xFF);
+        if ((prev + 1) != next) {
+            return false;
+        }
+        int prevH = (prev >> 8) & 0xFF;
+        int prevL = prev & 0xFF;
+        int nextH = (next >> 8) & 0xFF;
+        int nextL = next & 0xFF;
 
         return prevH == nextH && (prevL + 1) == nextL;
     }
