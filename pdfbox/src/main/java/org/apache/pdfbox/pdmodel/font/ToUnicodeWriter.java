@@ -202,7 +202,7 @@ final class ToUnicodeWriter
         int nextH = (next >> 8) & 0xFF;
         int nextL = next & 0xFF;
 
-        return prevH == nextH && (prevL + 1) == nextL;
+        return prevH == nextH && prevL < nextL;
     }
 
     // allowDestinationRange returns true if the code points represented by the strings are sequential and differ

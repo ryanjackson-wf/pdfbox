@@ -43,6 +43,8 @@ public class TestToUnicodeWriter extends TestCase
         Map.Entry<Integer, String> seven = new AbstractMap.SimpleEntry<Integer, String>(0x0400, "7");
         Map.Entry<Integer, String> eight = new AbstractMap.SimpleEntry<Integer, String>(0x0401, "8");
 
+        assertFalse(ToUnicodeWriter.allowCIDToUnicodeRange(null, seven));
+        assertFalse(ToUnicodeWriter.allowCIDToUnicodeRange(six, null));
         assertFalse(ToUnicodeWriter.allowCIDToUnicodeRange(six, seven));
         assertTrue(ToUnicodeWriter.allowCIDToUnicodeRange(seven, eight));
     }
@@ -60,9 +62,11 @@ public class TestToUnicodeWriter extends TestCase
         // Denied progressions (non sequential)
         assertFalse(ToUnicodeWriter.allowCodeRange(0x0000, 0x0000));
         assertFalse(ToUnicodeWriter.allowCodeRange(0x0000, 0x000F));
-        assertFalse(ToUnicodeWriter.allowCodeRange(0x0007, 0x000F));
+        assertFalse(ToUnicodeWriter.allowCodeRange(0x0000, 0x007F));
         assertFalse(ToUnicodeWriter.allowCodeRange(0x0000, 0x00FF));
+        assertFalse(ToUnicodeWriter.allowCodeRange(0x0007, 0x000F));
         assertFalse(ToUnicodeWriter.allowCodeRange(0x007F, 0x00FF));
+        assertFalse(ToUnicodeWriter.allowCodeRange(0x00FF, 0x00FF));
 
         // Denied progressions (overflow)
         assertFalse(ToUnicodeWriter.allowCodeRange(0x00FF, 0x0100));
